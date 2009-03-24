@@ -52,6 +52,23 @@ The following methods are available from this class.
 
 #-------------------------------------------------------------------
 
+=head2 processRequest ( request ) 
+
+
+=cut
+
+sub processRequest {
+    my ($class, $request) = @_;
+    my $command = 'run_'.$request->{command};
+    my $args = $request->{args};
+    if (my $sub = main->can($command)) {
+        return $sub->($args);
+    }
+    return { "error" => "Method not allowed.", "status" => "405" };
+}
+
+#-------------------------------------------------------------------
+
 =head2 run ()
 
 Class method. This method is executed to invoke the shell.
@@ -59,35 +76,27 @@ Class method. This method is executed to invoke the shell.
 =cut
 
 sub run {
+    my $class = shift;
     my $json = JSON->new->utf8;
+    my $request;
     while (my $line = <STDIN>) {
-        my $request = eval {$json->incr_parse($line)};
+        $request = eval {$json->incr_parse($line)};
         if ($@) {
             warn $@;
             print '{ "error" : "Malformed request.", "status" : "400" }';
-            exit;
+            return;
         }
-        if (defined $request) {
-            my $command = 'run_'.$request->{command};
-            my $args = $request->{args};
-            if (my $sub = main->can($command)) {
-                my $result = $sub->($args);
-                $result->{version} = $VERSION;
-                my $encodedResult = eval{JSON->new->pretty->utf8->encode($result)};
-                if ($@) {
-                    print '{ "error" : "Malformed response.", "status" : "511" }';
-                }
-                else {
-                    print $encodedResult."\n";
-                }
-            }
-            else {
-                print '{ "error" : "Method not allowed.", "status" : "405" }';
-            }
-            exit;
-        }
+        last if defined $request;
     }
-    print '{ "error" : "An undefined error has occured.", "status" : "500" }';
+    my $result = $class->processRequest($request);
+    $result->{version} = $VERSION;
+    my $encodedResult = eval{JSON->new->pretty->utf8->encode($result)};
+    if ($@) {
+        print { "error" => "Malformed response.", "status" => "511" };
+    }
+    else {
+        print $encodedResult."\n";
+    }
 }
 
 

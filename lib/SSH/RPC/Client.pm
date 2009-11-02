@@ -1,6 +1,6 @@
 package SSH::RPC::Client;
 
-our $VERSION = 1.200;
+our $VERSION = 1.201;
 
 use strict;
 use Class::InsideOut qw(readonly private id register);
@@ -36,7 +36,15 @@ The following methods are available from this class.
 
 =cut
 
-private ssh => my %ssh;
+#-------------------------------------------------------------------
+
+=head2 ssh
+
+Constructs and returns a reference to the L<Net::OpenSSH> object.
+
+=cut
+
+readonly ssh => my %ssh;
 
 #-------------------------------------------------------------------
 
@@ -102,6 +110,7 @@ sub run {
     }
     return SSH::RPC::Result->new($response);
 }
+
 
 =head1 SEE ALSO
 

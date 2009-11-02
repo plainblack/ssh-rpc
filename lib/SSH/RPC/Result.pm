@@ -1,6 +1,6 @@
 package SSH::RPC::Result;
 
-our $VERSION = 1.200;
+our $VERSION = 1.201;
 
 use strict;
 use Class::InsideOut qw(private id register);

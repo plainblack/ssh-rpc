@@ -1,6 +1,6 @@
 package SSH::RPC::Shell;
 
-our $VERSION = 1.200;
+our $VERSION = 1.201;
 
 use strict;
 use JSON;
@@ -61,7 +61,7 @@ sub processRequest {
     my ($class, $request) = @_;
     my $command = 'run_'.$request->{command};
     my $args = $request->{args};
-    if (my $sub = main->can($command)) {
+    if (my $sub = $class->can($command)) {
         return $sub->($args);
     }
     return { "error" => "Method not allowed.", "status" => "405" };

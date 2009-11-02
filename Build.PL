@@ -11,7 +11,7 @@ my $build = Module::Build->new (
     requires => {
         'perl'              => '5.8.8',
         'JSON'              => '2.12',
-        'Net::OpenSSH'      => '0.30',
+        'Net::OpenSSH'      => '0.39',
         'Class::InsideOut'  => '1.06',
         },
 );

@@ -18,7 +18,7 @@ sub run_hiResTime {
     my @time = localtime($seconds);
     return {
         status      => 200,
-        response    => join(":", $time[2], $time[1], $time[0], $microseconds),
+        response    => [ $time[2], $time[1], $time[0], $microseconds ],
         };
 }
 

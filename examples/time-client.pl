@@ -37,7 +37,12 @@ my $ssh = SSH::RPC::Client->new($host, $user, $pass);
 my $command = ($hires) ? "hiResTime" : "time";
 my $result = $ssh->run($command);
 if ($result->isSuccess) {
-    print $result->getResponse."\n";
+    if ($hires) {
+        printf "%02d:%02d:%02d.%d\n", @{$result->getResponse};
+    }
+    else {
+        print $result->getResponse."\n";
+    }
 }
 else {
     die $result->getError;

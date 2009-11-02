@@ -16,7 +16,7 @@ SSH::RPC::Client - The requestor, or client side, of an RPC call over SSH.
 
  use SSH::RPC::Client;
 
- my $rpc = SSH::RPC::Shell->new($host, $user);
+ my $rpc = SSH::RPC::Client->new($host, $user);
  my $result = $rpc->run($command, \%args); # returns a SSH::RPC::Result object
 
  if ($result->isSuccess) {

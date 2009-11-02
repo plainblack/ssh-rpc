@@ -7,6 +7,5 @@ plan tests => 1;
 
 
 use_ok('SSH::RPC::Client');
-my $client = SSH::RPC::Client->new('nonexistant.example.com');
-isa_ok($client,'SSH::RPC::Client');
 
+# Can't really test any more than this because we don't have an SSH to connect to

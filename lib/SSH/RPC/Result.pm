@@ -66,10 +66,11 @@ sub getShellVersion {
 
 Returns a status code for the RPC. The built in status codes are:
 
- 200 - Success
+ 200 - Success.
  400 - Malform request received by shell.
  405 - RPC called a method that doesn't exist.
  406 - Error transmitting RPC.
+ 408 - Connection error.
  500 - An undefined error occured in the shell.
  510 - Error translating return document in client.
  511 - Error translating return document in shell.

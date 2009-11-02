@@ -97,16 +97,21 @@ sub run {
         args    => $args,
         }) . "\n"; # all requests must end with a \n
     my $ssh = $self->ssh;
-    my $out;
     my $response;
-    if ($out = $ssh->capture({stdin_data => $json, ssh_opts => ['-T']})) {
-        $response =  eval{JSON->new->utf8->decode($out)};
-        if ($@) {
-            $response = {error=>"Response translation error. $@".$ssh->error, status=>510};
+    if ($ssh) {
+        my $out;
+        if ($out = $ssh->capture({stdin_data => $json, ssh_opts => ['-T']})) {
+            $response =  eval{JSON->new->utf8->decode($out)};
+            if ($@) {
+                $response = {error=>"Response translation error. $@".$ssh->error, status=>510};
+            }
+        }
+        else {
+            $response = {error=>"Transmission error. ".$ssh->error, status=>406};
         }
     }
     else {
-        $response = {error=>"Transmission error. ".$ssh->error, status=>406};
+        $response = {error=>"Connection error. ".$ssh->error, status=>408};
     }
     return SSH::RPC::Result->new($response);
 }

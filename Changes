@@ -1,3 +1,7 @@
+1.202
+
+- SysFink (http://code.google.com/p/sysfink/) protocols are now based upon SSH::RPC.
+
 1.201 2009-11-02
 
 - Finally got around to fixing the broken version from the previous release.

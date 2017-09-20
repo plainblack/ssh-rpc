@@ -1,3 +1,7 @@
+1.203 2017-09-20
+- Add option to provide extended attributes to the new Net::OpenSSH object
+- Add option to provide existing Net::OpenSSH object
+
 1.202
 
 - SysFink (http://code.google.com/p/sysfink/) protocols are now based upon SSH::RPC.

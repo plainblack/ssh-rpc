@@ -1,7 +1,5 @@
 package SSH::RPC::Shell;
 
-our $VERSION = 1.201;
-
 use strict;
 use JSON;
 
@@ -89,7 +87,7 @@ sub run {
         last if defined $request;
     }
     my $result = $class->processRequest($request);
-    $result->{version} = $VERSION;
+    $result->{version} = $SSH::RPC::Shell::VERSION;
     my $encodedResult = eval{JSON->new->pretty->utf8->encode($result)};
     if ($@) {
         print { "error" => "Malformed response.", "status" => "511" };

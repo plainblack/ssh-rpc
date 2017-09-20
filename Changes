@@ -1,6 +1,7 @@
 1.203 2017-09-20
 - Add option to provide extended attributes to the new Net::OpenSSH object
 - Add option to provide existing Net::OpenSSH object
+- Now using Dist::Zilla for CPAN packaging
 
 1.202
 

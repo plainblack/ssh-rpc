@@ -1,9 +1,10 @@
 package SSH::RPC::Client;
 
-our $VERSION = 1.203;
+our $VERSION = 1.204;
 
 use strict;
 use Class::InsideOut qw(readonly private id register);
+use Scalar::Util qw(blessed);
 use JSON;
 use Net::OpenSSH;
 use SSH::RPC::Result;

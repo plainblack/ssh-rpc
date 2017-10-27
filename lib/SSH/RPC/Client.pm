@@ -2,6 +2,7 @@ package SSH::RPC::Client;
 
 use strict;
 use Class::InsideOut qw(readonly private id register);
+use Scalar::Util qw(blessed);
 use JSON;
 use Net::OpenSSH;
 use SSH::RPC::Result;
